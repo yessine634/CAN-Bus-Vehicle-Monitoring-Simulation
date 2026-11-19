@@ -224,6 +224,24 @@ pip install -r requirements.txt
 
 ## How to Run
 
+### Local web dashboard
+
+From PowerShell in the project folder, run ` .\dashboard.cmd ` and open
+http://127.0.0.1:8000. Keep the server running while using the app.
+
+The HTML/CSS/JavaScript dashboard uses Python's standard-library HTTP server.
+No additional packages or external web services are needed. Choose a run length,
+click **Start simulation**, inspect live readings and fault events, or click
+**Stop** to end early and save reports. Reports include six graphs, CSV export,
+and the diagnostic summary in the expandable console. Each run replaces the
+previous CSV log and generated plots.
+
+The environment (`.venv`), caches and app logs (`.runtime`), data (`data`),
+and graphs (`plots`) stay inside this project. Stop the app before deleting
+the folder. The app uses the existing Python installation behind `.venv`.
+
+### Original terminal simulation
+
 Run the main simulation:
 
 ```bash

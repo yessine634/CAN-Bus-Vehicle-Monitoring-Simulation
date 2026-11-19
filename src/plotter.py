@@ -81,6 +81,15 @@ def generate_plots(csv_path="data/can_log.csv", output_dir="plots"):
         plt.savefig(f"{output_dir}/fault_count.png")
         plt.close()
 
+    else:
+        plt.figure()
+        plt.text(0.5, 0.5, "No faults detected during this run",
+                 ha="center", va="center", transform=plt.gca().transAxes)
+        plt.title("Fault Count by Type")
+        plt.axis("off")
+        plt.savefig(f"{output_dir}/fault_count.png")
+        plt.close()
+
     print("Plots generated successfully")
 
 

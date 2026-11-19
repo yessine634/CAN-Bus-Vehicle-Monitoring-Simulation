@@ -1,4 +1,6 @@
 import time
+import argparse
+from pathlib import Path
 import can
 
 from vehicle_model import VehicleModel
@@ -9,6 +11,10 @@ from diagnostic_summary import generate_diagnostic_summary
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--duration', type=int, default=15)
+    parser.add_argument('--stop-file', type=Path)
+    args = parser.parse_args()
     print("Starting CAN Bus Vehicle Monitoring Simulation...\n")
 
     vehicle = VehicleModel()
@@ -29,9 +35,13 @@ def main():
     dashboard.start()
 
     try:
-        simulation_time = 15
+        simulation_time = max(1, min(args.duration, 300))
         print(f"Simulation running for {simulation_time} seconds...\n")
-        time.sleep(simulation_time)
+        deadline = time.monotonic() + simulation_time
+        while time.monotonic() < deadline:
+            if args.stop_file and args.stop_file.exists():
+                break
+            time.sleep(0.1)
 
     finally:
         print("\nStopping simulation...")
